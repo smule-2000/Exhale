@@ -242,6 +242,39 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 .memc .mt span{font:400 14px/20px var(--sans);margin-top:6px}
 .memc .mt small{display:block}
 .quiet{font:400 14px/20px var(--sans);padding:12px 16px}
+
+.rcpt{font:500 12px/20px var(--sans);letter-spacing:.11em;text-transform:uppercase;color:var(--night);margin-top:4px}
+.rdash{height:0;border-top:2px dashed rgba(79,54,75,.35);margin:16px 0}
+.rl{font:500 12px/16px var(--sans);letter-spacing:.11em;text-transform:uppercase;color:var(--night);margin:0 0 8px}
+#reMir{display:flex;gap:12px;align-items:flex-start}
+#reMir svg{flex:none;margin-top:2px;color:var(--cinnabar,#DB3E1D)}
+#reMir b{display:block;font:700 22px/28px var(--serif,"IBM Plex Serif",serif);letter-spacing:-.02em;color:var(--night)}
+#reMir small{display:block;font:500 11px/16px var(--sans);letter-spacing:.11em;text-transform:uppercase;color:#6b5873;margin-bottom:2px}
+.rtags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 16px}
+.rtags span{font:500 12px/16px var(--sans);letter-spacing:.04em;color:var(--night);background:rgba(79,54,75,.12);border-radius:10px;padding:2px 10px}
+.rtags span:first-child{background:rgba(219,62,29,.16)}
+.rplay{display:flex;align-items:center;gap:12px;background:var(--alb,#F7E9DE);border-radius:4px;padding:10px 14px;height:56px}
+.rplay .rp{flex:none;width:32px;height:32px;border-radius:50%;background:var(--night);display:flex;align-items:center;justify-content:center;padding-left:2px}
+.rwave{flex:1;display:flex;align-items:center;justify-content:space-between;gap:2px;overflow:hidden;height:34px}
+.rwave i{background:var(--night)!important}
+.rdur{font:500 12px/16px var(--sans);color:var(--night)}
+.rtxt{font:400 16px/24px var(--sans);color:var(--night)}
+.atts{display:flex;gap:8px;margin-bottom:8px}
+.atile{flex:1;height:96px;border-radius:4px;overflow:hidden;position:relative;background:var(--night)}
+.atile svg{width:100%;height:100%;display:block;filter:url(#riso)}
+.atile em{position:absolute;left:8px;bottom:6px;right:8px;font:500 11px/14px var(--sans);letter-spacing:.06em;font-style:normal;color:var(--alb,#F7E9DE);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.atile:after{content:"";position:absolute;left:0;right:0;bottom:0;height:26px;background:linear-gradient(transparent,rgba(46,34,54,.7))}
+.atile em{z-index:2}
+.adoc{display:flex;align-items:center;gap:12px;background:var(--alb,#F7E9DE);border-radius:4px;padding:10px 14px;height:56px;margin-bottom:8px}
+.adoc svg{flex:none;width:32px;height:32px}
+.adoc b{display:block;font:500 14px/20px var(--sans);color:var(--night)}
+.adoc small{display:block;font:400 12px/16px var(--sans);color:#6b5873}
+.rbtm{text-align:center;font:500 11px/16px var(--sans);letter-spacing:.2em;color:rgba(79,54,75,.5);margin-top:16px}
+@keyframes rwv{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.72)}}
+.rwave i{transform-origin:center;animation:rwv 2.6s ease-in-out infinite}
+.rwave i:nth-child(3n){animation-delay:-.8s}.rwave i:nth-child(3n+1){animation-delay:-1.6s}
+@keyframes rsp{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.14) rotate(8deg)}}
+#reMir svg{animation:rsp 5s ease-in-out infinite}
 .rlbl{margin:24px 0 12px}
 .card{padding:16px}
 .memc.hasv .mt{padding:16px!important}
@@ -439,11 +472,18 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 </section>
 <section class="scr" id="rootE" aria-label="Entry">
   <button class="t tl" id="reBack" style="left:24px;top:62px">‹ Back</button>
-  <h1 class="t serif" id="reDate" style="left:24px;top:112px;width:348px;font-size:33px;line-height:38px"></h1>
-  <div class="scroll" style="top:170px;height:560px">
-    <div style="height:56px;display:flex;align-items:center;justify-content:center;gap:3px;background:rgba(202,186,215,.12);border-radius:4px;margin-bottom:22px" id="reWave"></div>
-    <div class="lbl" style="font-size:14px;margin-bottom:10px">What you said</div>
-    <p id="reText" style="font:400 18px/27px var(--sans);color:var(--lav)"></p>
+  <div class="a sheet torn" data-torn="364x580" style="left:24px;top:92px;width:364px;height:580px"></div>
+  <div class="a" id="reBody" style="left:24px;top:108px;width:364px;height:552px;overflow-y:auto;scrollbar-width:none;padding:12px 24px 24px;color:var(--night)">
+    <h1 class="serif" id="reDate" style="font-size:30px;line-height:38px;letter-spacing:-.05em;color:var(--night);text-shadow:none"></h1>
+    <div id="reMeta" class="rcpt"></div>
+    <div class="rdash"></div>
+    <div id="reMir"></div>
+    <div id="reTags" class="rtags"></div>
+    <div class="rplay"><span class="rp"><svg width="12" height="14" viewBox="0 0 14 17"><path d="M0 0l14 8.5L0 17z" fill="#F7E9DE"/></svg></span><span id="reWave" class="rwave"></span><span id="reDur" class="rdur"></span></div>
+    <div class="rdash"></div>
+    <div class="rl">What you said</div>
+    <p id="reText" class="rtxt"></p>
+    <div id="reAtt"></div>
   </div>
   <button class="a primary btnc" id="reShare" style="left:24px;top:677px;width:364px;height:52px;font-size:15px">Share with someone</button>
   <button class="a cta btnc" id="reDone" style="left:24px;top:741px;width:364px;height:52px">Done for now</button>
@@ -612,6 +652,8 @@ function seed(){let r=7;const rnd=()=>(r=(r*1664525+1013904223)%4294967296)/4294
   const u=rnd();const hr=u<.58?21+Math.floor(rnd()*3):u<.73?Math.floor(rnd()*5):u<.83?5+Math.floor(rnd()*4):u<.93?12+Math.floor(rnd()*6):18+Math.floor(rnd()*3);
   const t=new Date(now-d*864e5);t.setHours(hr,Math.floor(rnd()*60),0,0);
   const arr=T[key];out.push({id:"seed"+d,t:t.getTime(),text:arr[Math.floor(rnd()*arr.length)],card:key,dur:20+Math.floor(rnd()*40),w:Math.max(.1,Math.min(1,BASE[key]+(rnd()-.5)*.26-prog*.24))});}
+ const IM={sleep:"Crib at 3am.jpg",chaos:"Laundry mountain.jpg",lonely:"Parked car view.jpg",anger:"Bedtime aftermath.jpg",love:"Asleep on my shoulder.jpg"},DC=["Pediatrician notes.pdf","Sleep log.txt","Daycare form.pdf"];
+ out.forEach((e,i)=>{const a=[];if(i%3===1){a.push({k:"img",n:IM[e.card]||"Photo.jpg"});if(i%6===1)a.push({k:"img",n:"Morning light.jpg"});}if(i%4===2)a.push({k:"doc",n:DC[i%3]});if(a.length)e.att=a;});
  return out;}
 let mem=null;function load(){try{const r=localStorage.getItem("threshold.fig.v2");if(r)return JSON.parse(r);}catch(e){}return mem||{entries:seed(),removed:[]};}
 let S=load();function save(){mem=S;try{localStorage.setItem("threshold.fig.v2",JSON.stringify(S));}catch(e){}}
@@ -626,8 +668,8 @@ function barcode(n){let x=0,h="",k=n;while(x<316){k=(k*9301+49297)%233280;const 
 function openUnpack(){$("unpTime").textContent=new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});$("unpDate").textContent=fmtDU(Date.now());const r=$("unpRec");if(pendingDur>0){r.textContent="Voice note attached · "+fmtDur(pendingDur);r.style.opacity=1;}else r.style.opacity=0;go("unp");}
 $("capStart").onclick=()=>{recFrom=null;startRec();};
 $("tRec").onclick=()=>{recFrom="unp";startRec();};
-$("tImg").onclick=$("tDoc").onclick=()=>$("fileIn").click();
-$("capType").onclick=()=>{$("unpText").value="";pendingDur=0;openUnpack();};
+let pendingAtt=[],attKind="img";$("tImg").onclick=()=>{attKind="img";$("fileIn").click();};$("tDoc").onclick=()=>{attKind="doc";$("fileIn").click();};
+$("capType").onclick=()=>{$("unpText").value="";pendingDur=0;pendingAtt=[];openUnpack();};
 
 
 /* ---------- 2. recording ---------- */
@@ -685,7 +727,7 @@ function startSynth(text){const msg=$("synMsg");$("synField").innerHTML="";
 function logIt(){const t=$("unpText").value.trim();if(!t&&!pendingDur){toast("Write a little, or record it instead.");return;}const d=pendingDur;pendingDur=0;$("unpText").value="";complete(t,d);}
 $("unpLog").onclick=logIt;
 $("unpBack").onclick=()=>{pendingDur=0;go("cap");};
-$("fileIn").onchange=e=>{if(e.target.files[0])toast("Added “"+e.target.files[0].name.slice(0,24)+"” (kept on this device).");e.target.value="";};
+$("fileIn").onchange=e=>{if(e.target.files[0])pendingAtt.push({k:attKind,n:e.target.files[0].name.slice(0,28)});if(e.target.files[0])toast("Added “"+e.target.files[0].name.slice(0,24)+"” (kept on this device).");e.target.value="";};
 
 /* ---------- classify + flow: saved → reflecting → reflection ---------- */
 let failNext=false,lastCard=null,timers=[];
@@ -693,7 +735,7 @@ function classify(t){for(const [k,re] of KEYS)if(re.test(t))return k;return "cha
 function complete(text,dur){
   if(failNext){failNext=false;text="";}
   const key=(!text||text.trim().length<3)?"neutral":classify(text);
-  const e={id:"e"+Date.now(),t:Date.now(),text:text.trim(),card:key,dur:dur||15,w:heavy(key,1)};S.entries.push(e);save();lastCard={key,e};
+  const e={id:"e"+Date.now(),t:Date.now(),text:text.trim(),card:key,dur:dur||15,w:heavy(key,1)};if(pendingAtt.length){e.att=pendingAtt;pendingAtt=[];}S.entries.push(e);save();lastCard={key,e};
   const old=S.entries.filter(x=>x!==e&&x.card!=="neutral"&&x.text).sort((a,b)=>a.t-b.t)[0];
   $("savMeta").textContent=fmtDur(e.dur)+" | "+fmtDU(e.t);
   if(old){const q=old.text.split(/[.!?]/)[0].trim();const days=Math.max(1,Math.round((Date.now()-old.t)/864e5));
@@ -819,7 +861,20 @@ function openStrength(k){curS=k;$("rsName").textContent=k;
   $("rsBody").innerHTML=`<div style="background:var(--lav);color:var(--eggplant);border-radius:4px;padding:16px;font:700 22px/28px var(--serif);letter-spacing:-.02em;margin-bottom:24px">“${STR[k]}”</div><div class="lbl" style="font-size:14px;margin-bottom:10px">From your entries</div>`+es.map(e=>`<button class="row" data-id="${e.id}"><span class="p"><svg width="12" height="14" viewBox="0 0 14 17"><path d="M0 0l14 8.5L0 17z" fill="#F7E9DE"/></svg></span><span><b style="font-weight:500">${fmtD(e.t)}</b> <span style="color:var(--lav);font-size:14px">· ${fmtDur(e.dur)}</span></span></button>`).join("");
   $("rsBody").querySelectorAll(".row").forEach(b=>b.onclick=()=>openEntry(b.dataset.id));go("rootS");}
 let eBackTo="roots";
-function openEntry(id,back){eBackTo=back||"roots";if(back==="relics")RELTAB="mine";const e=S.entries.find(x=>x.id===id);if(!e)return;curE=e;ensureRel();$("reDate").textContent=fmtD(e.t);$("reWave").innerHTML=bars(40,34,e.t%7,"rgba(247,233,222,.85)",3);$("reText").textContent=e.text?"“"+e.text+"”":"You said it out loud. That counts.";go("rootE");}
+const ATTV={sleep:"moon",chaos:"sun",lonely:"letter",anger:"sun",love:"heart",neutral:"jar"};
+function attHTML(e){const att=e.att||[];if(!att.length)return `<div class="rdash"></div><div class="rl">Attached</div><p style="font:400 14px/20px var(--sans);color:#6b5873">Nothing attached to this one.</p>`;
+  const im=att.filter(a=>a.k==="img"),dc=att.filter(a=>a.k==="doc");let h=`<div class="rdash"></div><div class="rl">Attached · ${att.length}</div>`;
+  if(im.length)h+=`<div class="atts">${im.slice(0,2).map((a,k)=>`<div class="atile">${vig(k?["flower","cup","sun","moon"][e.t%4]:ATTV[e.card]||"jar",96)}<em>${a.n}</em></div>`).join("")}</div>`;
+  dc.forEach(a=>{const ext=(a.n.split(".").pop()||"").toUpperCase();h+=`<div class="adoc"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="4" fill="#4F364B"/><rect x="8" y="5" width="16" height="22" fill="#F7E9DE"/><path d="M19 5l5 5h-5z" fill="#CABAD7"/><rect x="11" y="14" width="10" height="2" fill="#4F364B"/><rect x="11" y="19" width="7" height="2" fill="#DB3E1D"/></svg><span><b>${a.n}</b><small>${ext} · added with this entry</small></span></div>`;});
+  return h;}
+function openEntry(id,back){eBackTo=back||"roots";if(back==="relics")RELTAB="mine";const e=S.entries.find(x=>x.id===id);if(!e)return;curE=e;ensureRel();
+  $("reDate").textContent=fmtD(e.t);
+  $("reMeta").innerHTML=`${new Date(e.t).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"})}<i style="display:inline-block;width:1px;height:16px;background:var(--night);margin:0 10px;vertical-align:-4px"></i>${fmtDur(e.dur)}`;
+  const c=CARDS[e.card];$("reMir").innerHTML=c?`<svg width="28" height="28" viewBox="0 0 28 28"><path d="M12.5 3C13.2 8.5 14.8 11.6 21 13C14.8 14.4 13.2 17.5 12.5 23C11.8 17.5 10.2 14.4 4 13C10.2 11.6 11.8 8.5 12.5 3Z" fill="#DB3E1D"/><path d="M21.5 1C21.9 3.6 23 4.7 25.5 5.2C23 5.7 21.9 6.8 21.5 9.4C21.1 6.8 20 5.7 17.5 5.2C20 4.7 21.1 3.6 21.5 1Z" fill="#4F364B"/><circle cx="22.5" cy="20.5" r="1.4" fill="#4F364B"/></svg><span><small>A reflection for you</small><b>${c.h}</b></span>`:"";
+  $("reTags").innerHTML=c?`<span>${FEEL[e.card]||"Quiet"}</span>`+(THEMES[e.card]||[]).map(t=>`<span>${t}</span>`).join(""):"";
+  $("reWave").innerHTML=bars(34,28,e.t%7,"#4F364B",2);$("reDur").textContent=fmtDur(e.dur);
+  $("reText").textContent=e.text?"“"+e.text+"”":"You said it out loud. That counts.";
+  $("reAtt").innerHTML=attHTML(e)+`<div class="rbtm">· · · · · · · · ·</div>`;$("reBody").scrollTop=0;go("rootE");}
 $("rsBack").onclick=()=>go("roots");$("reBack").onclick=()=>eBackTo==="relics"?go("relics"):(curS&&grouped(true)[curS]?openStrength(curS):go("roots"));$("reDone").onclick=()=>go(eBackTo==="relics"?"relics":"roots");
 $("rsRemove").onclick=()=>{if(!curS)return;S.removed.push(curS);save();toast("“"+curS+"” removed. It won’t appear again.");curS=null;go("roots");};
 
