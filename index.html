@@ -285,6 +285,9 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 #a2I .ch1{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 #a2I .tg{font:400 12px/16px var(--sans);letter-spacing:.04em;color:var(--lav);background:rgba(202,186,215,.12);border-radius:10px;padding:2px 10px}
 #a2I p{font:400 14px/20px var(--sans);color:var(--lav);margin-bottom:6px}
+#a2I .hint{font:400 16px/24px var(--sans);color:var(--alb,#F7E9DE);margin-bottom:12px}
+#a2I .more{font:500 14px/20px var(--sans);color:var(--lav);background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+#a2I .moreBox{display:none;margin-top:12px}
 #a2I small{display:block;font:400 11px/16px var(--sans);color:rgba(202,186,215,.5)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
 </style>
@@ -406,7 +409,7 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
   <div class="a rv d4" style="left:44px;top:540px;width:324px;height:1px;background:rgba(202,186,215,.3)"></div>
   <div class="a rv d4" style="left:44px;top:560px;width:324px;height:150px">
     <div class="a2tabs"><button id="a2TabT" class="on">Transcript</button><button id="a2TabI">Insights</button></div>
-    <div id="a2I" style="position:absolute;top:34px;width:324px;display:none"></div>
+    <div id="a2I" style="position:absolute;top:34px;width:324px;height:116px;overflow-y:auto;scrollbar-width:none;display:none"></div>
     <div id="a2T" style="position:absolute;top:34px;width:324px;height:104px;overflow:hidden;font:400 18px/27px var(--sans);color:var(--lav)"></div>
   </div>
   <button class="a cta btnc exh rv d5" id="a2Exhale" style="left:24px;top:741px;width:364px;height:52px">Exhale</button>
@@ -708,11 +711,13 @@ function reveal(){if(cur!=="a1"||!lastCard)return;const c=CARDS[lastCard.key];
 
 const THEMES={sleep:["Sleep","Work","Guilt"],chaos:["Overload","Home","Needs at once"],lonely:["Connection","Missing friends"],anger:["Patience","Guilt","Stress"],love:["Love","Needing space"],neutral:["Quiet moment"]};
 const FEEL={sleep:"Worn out",chaos:"Overloaded",lonely:"Missing people",anger:"Stretched thin",love:"Tender and tired",neutral:"Quiet"};
+const HINT={sleep:"Hints of exhaustion, guilt and worry. These are normal responses to a long stretch of broken sleep.",chaos:"Hints of overwhelm, frustration and guilt. These are normal responses to everything needing you at once.",lonely:"Hints of loneliness and longing. These are normal responses to a life that has shrunk around the baby.",anger:"Hints of guilt, anger and resentment. These are normal responses to your environment.",love:"Hints of tenderness and tiredness together. These are normal responses to loving someone this much.",neutral:"Nothing heavy here. A quiet moment is still worth saying out loud."};
 function fillInsights(){const k=lastCard.key,e=lastCard.e,since=Date.now()-30*864e5;
   const n=S.entries.filter(x=>x.card===k&&x.t>=since).length;
   const tg=(THEMES[k]||THEMES.neutral).map(t=>`<span class="tg">${t}</span>`).join("");
   const pat=k==="neutral"?"Nothing to read into this one.":n>1?`This has come up ${n} times this month.`:"This is the first time it’s come up this month.";
-  $("a2I").innerHTML=`<div class="ch1"><span class="tg" style="background:rgba(229,146,129,.2)">${FEEL[k]||"Quiet"}</span>${tg}</div><p>${pat}</p><small>Based only on what you said. Not advice.</small>`;
+  $("a2I").innerHTML=`<p class="hint">${HINT[k]||HINT.neutral}</p><button class="more" id="insMore">More info</button><div class="moreBox" id="insBox"><div class="ch1"><span class="tg" style="background:rgba(229,146,129,.2)">${FEEL[k]||"Quiet"}</span>${tg}</div><p>${pat}</p><small>Based only on what you said. Not advice.</small></div>`;
+  $("insMore").onclick=()=>{const b=$("insBox"),o=b.style.display==="block";b.style.display=o?"none":"block";$("insMore").textContent=o?"More info":"Less info";};
   setTab("T");}
 function setTab(w){$("a2T").style.display=w==="T"?"":"none";$("a2I").style.display=w==="I"?"block":"none";$("a2TabT").classList.toggle("on",w==="T");$("a2TabI").classList.toggle("on",w==="I");}
 $("a2TabT").onclick=()=>setTab("T");$("a2TabI").onclick=()=>setTab("I");
