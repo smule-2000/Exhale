@@ -89,7 +89,7 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 .row .p{width:34px;height:34px;border-radius:50%;background:rgba(202,186,215,.25);display:grid;place-items:center;flex:none}
 .toast{position:absolute;left:50%;bottom:130px;transform:translate(-50%,12px);background:var(--alb);color:var(--ink);padding:12px 18px;border-radius:4px;font-size:15px;opacity:0;pointer-events:none;transition:all .35s var(--ease);z-index:60;max-width:340px;text-align:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-#demoBtn{position:fixed;left:50%;transform:translateX(-50%);top:10px;z-index:100;background:#1c1f0c;color:var(--alb);border-radius:16px;padding:0 12px;min-height:30px;font:500 12px var(--sans);opacity:.7}
+#demoBtn{display:none;position:fixed;left:50%;transform:translateX(-50%);top:10px;z-index:100;background:#1c1f0c;color:var(--alb);border-radius:16px;padding:0 12px;min-height:30px;font:500 12px var(--sans);opacity:.7}
 #demo{position:fixed;left:50%;transform:translateX(-50%);top:48px;z-index:100;width:min(300px,calc(100vw - 20px));background:var(--alb);color:var(--ink);border-radius:4px;padding:14px;display:none;box-shadow:0 12px 40px rgba(0,0,0,.4)}
 #demo.on{display:block}
 #demo h4{font:700 16px var(--serif);margin-bottom:4px}
@@ -253,6 +253,39 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 .aim-d{animation:dotF 5.5s ease-in-out infinite alternate}
 #a2>svg.rx:first-of-type,#sav>svg.rx:first-of-type{animation:swayA 11s ease-in-out infinite alternate!important;transform-origin:50% 50%}
 #a2>svg.rx:first-of-type circle,#sav>svg.rx:first-of-type circle{animation:dotF 6s ease-in-out infinite alternate;transform-box:fill-box}
+
+#demo{top:52px;width:min(320px,calc(100vw - 20px));max-height:calc(100vh - 70px);overflow:auto;padding:16px;border-radius:12px}
+#demo h4{font-size:20px;line-height:26px}
+#demo p{font-size:13px;line-height:18px;margin-bottom:12px}
+#demo .dg{font:500 11px/16px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#6b5873;margin:12px 0 4px}
+#demo button{min-height:52px;padding:8px 10px;border-radius:8px}
+#demo button b{display:block;font:500 15px/20px var(--sans)}
+#demo button span{display:block;font:400 12px/16px var(--sans);opacity:.65}
+#demoDot{position:absolute;left:190px;top:10px;width:32px;height:32px;border-radius:50%;background:rgba(202,186,215,.22);border:1px solid rgba(202,186,215,.4);z-index:60;display:grid;place-items:center;animation:dotBr 6s ease-in-out infinite!important}
+#demoDot svg{margin-left:1.5px}
+@keyframes dotBr{0%,100%{opacity:.55}50%{opacity:.95}}
+
+#a1 .aimark{filter:url(#riso-soft)}
+
+/* AI sparkles: big star breathes + slowly turns, small stars twinkle in turn */
+.spB{transform-box:fill-box;transform-origin:center;animation:spBreath 5s ease-in-out infinite alternate}
+@keyframes spBreath{0%{transform:scale(.94) rotate(-6deg)}100%{transform:scale(1.06) rotate(6deg)}}
+.spA{transform-box:fill-box;transform-origin:center;animation:spTw 3.2s ease-in-out infinite}
+.spD{animation-delay:1.6s}
+@keyframes spTw{0%,100%{transform:scale(.55) rotate(-10deg);opacity:.35}50%{transform:scale(1.1) rotate(10deg);opacity:1}}
+
+/* live transcript as a real text field */
+#recLive{padding:12px 14px;background:rgba(202,186,215,.12);border:1px solid rgba(202,186,215,.3);border-radius:4px;font:400 16px/24px var(--sans);color:var(--alb);text-align:left;overflow-y:auto;outline:none;white-space:pre-wrap;word-break:break-word}
+#recLive:empty::before{content:attr(data-ph);color:rgba(202,186,215,.6)}
+#recLive:focus{border-color:var(--lav);background:rgba(202,186,215,.18)}
+
+.a2tabs{display:flex;gap:20px;height:20px}
+.a2tabs button{font:500 12px/16px var(--sans);letter-spacing:.11em;text-transform:uppercase;color:rgba(202,186,215,.5);padding:0 0 4px;border-bottom:1.5px solid transparent}
+.a2tabs button.on{color:var(--lav);border-bottom-color:var(--lav)}
+#a2I .ch1{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+#a2I .tg{font:400 12px/16px var(--sans);letter-spacing:.04em;color:var(--lav);background:rgba(202,186,215,.12);border-radius:10px;padding:2px 10px}
+#a2I p{font:400 14px/20px var(--sans);color:var(--lav);margin-bottom:6px}
+#a2I small{display:block;font:400 11px/16px var(--sans);color:rgba(202,186,215,.5)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
 </style>
 </head>
@@ -278,7 +311,7 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 
 <!-- ========== 2. RECORDING (1:123) ========== -->
 <section class="scr" id="rec" aria-label="Recording">
-  <div class="a" id="recOrb" style="left:78px;top:128px;width:256px;height:256px">
+  <div class="a" id="recOrb" style="left:78px;top:92px;width:256px;height:256px">
     <div class="track"></div>
     <div class="spin"><div class="arc"></div><div class="sat sat1"></div><div class="sat sat2" style="opacity:0"></div></div>
     <div class="rip" style="left:44px;top:44px"></div><div class="rip" style="left:44px;top:44px;animation-delay:-3s"></div>
@@ -289,10 +322,10 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
     </div>
   </div>
   <svg width="0" height="0" style="position:absolute"><defs><g id="micG"><path d="M47.5 65.3125C52.2242 65.3125 56.7549 63.4358 60.0953 60.0953C63.4358 56.7548 65.3125 52.2242 65.3125 47.5V23.75C65.3125 19.0258 63.4358 14.4952 60.0953 11.1547C56.7549 7.81417 52.2242 5.9375 47.5 5.9375C42.7758 5.9375 38.2452 7.81417 34.9047 11.1547C31.5642 14.4952 29.6875 19.0258 29.6875 23.75V47.5C29.6875 52.2242 31.5642 56.7548 34.9047 60.0953C38.2452 63.4358 42.7758 65.3125 47.5 65.3125Z" fill="#F7E9DE"/><path d="M74.3672 47.5371C73.5906 47.4534 72.8123 47.6792 72.201 48.1654C71.5897 48.6517 71.1947 49.3593 71.1016 50.1348C70.4497 55.9381 67.6825 61.2978 63.3287 65.1899C58.975 69.082 53.3398 71.2336 47.5 71.2336C41.6602 71.2336 36.025 69.082 31.6713 65.1899C27.3175 61.2978 24.5503 55.9381 23.8984 50.1348C23.8053 49.3593 23.4103 48.6517 22.799 48.1654C22.1877 47.6792 21.4094 47.4534 20.6328 47.5371C20.2436 47.574 19.8656 47.6883 19.5212 47.8734C19.1768 48.0585 18.873 48.3106 18.6275 48.6149C18.3819 48.9191 18.1998 49.2695 18.0917 49.6452C17.9836 50.0209 17.9518 50.4145 17.998 50.8027C18.7573 57.5385 21.8072 63.8091 26.6373 68.5649C31.4674 73.3206 37.7845 76.273 44.5312 76.9277V86.0938C44.5312 86.8811 44.844 87.6362 45.4008 88.193C45.9575 88.7497 46.7126 89.0625 47.5 89.0625C48.2874 89.0625 49.0425 88.7497 49.5992 88.193C50.156 87.6362 50.4687 86.8811 50.4687 86.0938V76.9277C57.2155 76.273 63.5326 73.3206 68.3627 68.5649C73.1928 63.8091 76.2427 57.5385 77.0019 50.8027C77.0482 50.4145 77.0164 50.0209 76.9083 49.6452C76.8002 49.2695 76.618 48.9191 76.3725 48.6149C76.127 48.3106 75.8231 48.0585 75.4788 47.8734C75.1344 47.6883 74.7564 47.574 74.3672 47.5371Z" fill="#F7E9DE"/></g></defs></svg>
-  <h1 class="t serif bre" style="left:24px;top:412px;width:364px;font-size:34px;line-height:40px;text-align:center">Vent it out</h1>
-  <div class="t lbl" id="recTime" role="timer" style="left:24px;top:466px;width:364px;font-size:15px;line-height:14px;text-align:center">00:00</div>
-  <div class="a" id="recWave" aria-hidden="true" style="left:0;top:541px;width:412px;height:52px"></div>
-  <div class="t" id="recLive" aria-live="polite" style="left:40px;top:604px;width:332px;height:40px;font:italic 400 15px/20px var(--sans);color:var(--lav);text-align:center;overflow:hidden"></div>
+  <h1 class="t serif bre" style="left:24px;top:370px;width:364px;font-size:34px;line-height:40px;text-align:center">Vent it out</h1>
+  <div class="t lbl" id="recTime" role="timer" style="left:24px;top:416px;width:364px;font-size:15px;line-height:14px;text-align:center">00:00</div>
+  <div class="a" id="recWave" aria-hidden="true" style="left:0;top:450px;width:412px;height:52px"></div>
+  <div class="t" id="recLive" role="textbox" aria-multiline="true" aria-label="Live transcript, tap to edit" contenteditable="true" spellcheck="false" data-ph="Listening…" style="left:24px;top:518px;width:364px;height:112px"></div>
   <button class="circ" id="recExit" aria-label="Exit without saving" style="left:51px;top:669px;width:60px;height:60px;background:rgba(202,186,215,.16)"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M8.87512 8.87445L26.6251 26.6245" stroke-width="4.4375" stroke-linecap="round" stroke="url(#cg1)"/><path d="M26.6251 8.87445L8.87512 26.6245" stroke-width="4.4375" stroke-linecap="round" stroke="url(#cg2)"/><circle cx="17.75" cy="17.75" r="2.59" fill="#DB3E1D"/><defs><linearGradient id="cg1" x1="8.9" y1="17.7" x2="26.6" y2="17.7" gradientUnits="userSpaceOnUse"><stop stop-color="#CABAD7" stop-opacity=".38"/><stop offset="1" stop-color="#CABAD7"/></linearGradient><linearGradient id="cg2" x1="8.9" y1="17.7" x2="26.6" y2="17.7" gradientUnits="userSpaceOnUse"><stop stop-color="#CABAD7"/><stop offset="1" stop-color="#CABAD7" stop-opacity=".38"/></linearGradient></defs></svg></button>
   <div class="t lbl" style="left:31px;top:741px;width:100px;font-size:11px;line-height:14px;text-align:center">Exit</div>
   <button class="circ" id="recMain" aria-label="Resume recording" style="left:159px;top:655px;width:88px;height:88px;background:var(--cin)">
@@ -345,10 +378,11 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
   <svg class="a" width="28" height="28" viewBox="0 0 28 28" style="left:24px;top:68px"><use href="#aiMono"/></svg>
   <div class="t lbl" style="left:62px;top:76px;font-size:11px;line-height:14px">Reflecting…</div>
   <button class="circ" id="a1Close" aria-label="Cancel" style="left:348px;top:62px;width:40px;height:40px;background:rgba(202,186,215,.14)"><svg width="12" height="12" viewBox="0 0 12 12" stroke="#F7E9DE" stroke-width="1.6" stroke-linecap="round"><path d="M1 1l10 10M11 1L1 11"/></svg></button>
-  <svg class="a rx aimark" id="aiBig" width="260" height="234" viewBox="0 0 200 180" fill="none" style="left:76px;top:283px;overflow:visible" aria-hidden="true">
-    <defs><linearGradient id="aiR" x1="20" y1="0" x2="180" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="reflect"><stop stop-color="#CABAD7" stop-opacity=".25"/><stop offset=".5" stop-color="#CABAD7" stop-opacity=".8"/><stop offset=".8" stop-color="#e59281" stop-opacity=".9"/><stop offset="1" stop-color="#DB3E1D" stop-opacity=".95"/><animateTransform attributeName="gradientTransform" type="translate" values="-50 0;50 0;-50 0" dur="9s" repeatCount="indefinite"/></linearGradient></defs>
-    <g class="aim-r"><path d="M34 100L80 146L160 56" stroke="#e59281" stroke-opacity=".3" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" transform="translate(5 4)"/><path d="M34 100L80 146L160 56" stroke="url(#aiR)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/></g>
-    <circle class="aim-d" cx="168" cy="46" r="20" fill="#DB3E1D"/>
+  <svg class="a rx aimark" id="aiBig" width="260" height="236" viewBox="0 0 220 200" fill="none" style="left:76px;top:282px;overflow:visible" aria-hidden="true">
+    <defs><linearGradient id="aiS" x1="20" y1="20" x2="200" y2="180" gradientUnits="userSpaceOnUse" spreadMethod="reflect"><stop stop-color="#CABAD7" stop-opacity=".9"/><stop offset=".5" stop-color="#e59281"/><stop offset="1" stop-color="#DB3E1D"/><animateTransform attributeName="gradientTransform" type="translate" values="-40 -30;40 30;-40 -30" dur="8s" repeatCount="indefinite"/></linearGradient></defs>
+    <g transform="translate(100 108)"><g class="spB"><path d="M0 -78Q12.48 -12.48 78 0Q12.48 12.48 0 78Q-12.48 12.48 -78 0Q-12.48 -12.48 0 -78Z" fill="#e59281" fill-opacity=".3" transform="translate(5 4)"/><path d="M0 -78Q12.48 -12.48 78 0Q12.48 12.48 0 78Q-12.48 12.48 -78 0Q-12.48 -12.48 0 -78Z" fill="url(#aiS)"/></g></g>
+    <g transform="translate(176 44)"><g class="spA"><path d="M0 -26Q4.16 -4.16 26 0Q4.16 4.16 0 26Q-4.16 4.16 -26 0Q-4.16 -4.16 0 -26Z" fill="#e59281" fill-opacity=".3" transform="translate(5 4)"/><path d="M0 -26Q4.16 -4.16 26 0Q4.16 4.16 0 26Q-4.16 4.16 -26 0Q-4.16 -4.16 0 -26Z" fill="url(#aiS)"/></g></g>
+    <g transform="translate(38 164)"><g class="spA spD"><path d="M0 -17Q2.72 -2.72 17 0Q2.72 2.72 0 17Q-2.72 2.72 -17 0Q-2.72 -2.72 0 -17Z" fill="#e59281" fill-opacity=".3" transform="translate(5 4)"/><path d="M0 -17Q2.72 -2.72 17 0Q2.72 2.72 0 17Q-2.72 2.72 -17 0Q-2.72 -2.72 0 -17Z" fill="url(#aiS)"/></g></g>
   </svg>
   <div class="a" id="synField" style="left:0;top:260px;width:412px;height:280px;pointer-events:none"></div>
   <div class="t" id="synMsg" style="left:24px;top:556px;width:364px;font:400 16px/24px var(--sans);color:var(--lav);text-align:center;transition:opacity .35s">Listening back to what you said…</div>
@@ -371,8 +405,9 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
     </div>
   <div class="a rv d4" style="left:44px;top:540px;width:324px;height:1px;background:rgba(202,186,215,.3)"></div>
   <div class="a rv d4" style="left:44px;top:560px;width:324px;height:150px">
-    <div class="lbl" style="font-size:14px;line-height:14px">Transcripts + insights</div>
-    <div id="a2T" style="position:absolute;top:28px;width:324px;height:108px;overflow:hidden;font:400 18px/27px var(--sans);color:var(--lav)"></div>
+    <div class="a2tabs"><button id="a2TabT" class="on">Transcript</button><button id="a2TabI">Insights</button></div>
+    <div id="a2I" style="position:absolute;top:34px;width:324px;display:none"></div>
+    <div id="a2T" style="position:absolute;top:34px;width:324px;height:104px;overflow:hidden;font:400 18px/27px var(--sans);color:var(--lav)"></div>
   </div>
   <button class="a cta btnc exh rv d5" id="a2Exhale" style="left:24px;top:741px;width:364px;height:52px">Exhale</button>
 </section>
@@ -442,6 +477,7 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 <div class="amb" aria-hidden="true"><i></i><i></i></div>
 <div class="bar" id="bar"></div>
 
+<button id="demoDot" aria-label="Open demo guide" title="Demo guide"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0l10 6L0 12z" fill="#F7E9DE"/></svg></button>
 <div class="sb" aria-hidden="true"><b>9:41</b>
   <svg style="position:absolute;left:298px;top:21px" width="19" height="12" viewBox="0 0 19 12" fill="#F7E9DE"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
   <svg style="position:absolute;left:322px;top:21px" width="17" height="12" viewBox="0 0 17 12" fill="none" stroke="#F7E9DE" stroke-width="2" stroke-linecap="round"><path d="M1.5 4.2a10 10 0 0 1 14 0M4 7a6.5 6.5 0 0 1 9 0"/><circle cx="8.5" cy="10.2" r="1.2" fill="#F7E9DE" stroke="none"/></svg>
@@ -479,18 +515,20 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 </div>
 
 <button id="demoBtn" aria-expanded="false">Demo controls</button>
-<div id="demo" role="dialog" aria-label="Demo controls">
-  <h4>Demo controls</h4>
-  <p>Demo Day only. All entries are made up (fictional parent “Sam”).</p>
-  <button data-d="s1">Say it for me: no sleep</button>
-  <button data-d="s2">Say it for me: too much at once</button>
-  <button data-d="s3">Say it for me: lonely</button>
-  <button data-d="s4">Say it for me: lost my patience</button>
-  <hr>
-  <button data-d="fail">Simulate: transcript fails</button>
-  <button data-d="empty">Simulate: no entries yet</button>
-  <button data-d="friend">Open the friend’s view (sends a memory)</button>
-  <button data-d="sample">Load a year of sample entries</button>
+<div id="demo" role="dialog" aria-label="Demo guide">
+  <h4>Demo guide</h4>
+  <p>Everything here is made up. The parent is a fictional person named Sam. Tapping the mic also plays a sample entry, so no microphone is needed.</p>
+  <div class="dg">Try a voice entry</div>
+  <button data-d="s1"><b>Rough night</b><span>Plays a sample entry about no sleep</span></button>
+  <button data-d="s2"><b>Too much at once</b><span>Plays a sample entry about a chaotic day</span></button>
+  <button data-d="s3"><b>Feeling lonely</b><span>Plays a sample entry about missing friends</span></button>
+  <button data-d="s4"><b>Lost my patience</b><span>Plays a sample entry about snapping</span></button>
+  <div class="dg">See other situations</div>
+  <button data-d="fail"><b>Transcript fails</b><span>Shows what happens if the words can’t be heard</span></button>
+  <button data-d="empty"><b>Brand-new user</b><span>Starts fresh, with no entries yet</span></button>
+  <div class="dg">Jump ahead</div>
+  <button data-d="sample"><b>Fill Roots with a year</b><span>Adds a year of sample entries so the charts have data</span></button>
+  <button data-d="friend"><b>Be a friend</b><span>Sends Sam a memory, to see it arrive in Relics</span></button>
 </div>
 
 <script>
@@ -595,15 +633,18 @@ function setPaused(p){R.paused=p;const o=$("recOrb");o.classList.toggle("paused"
   $("recMainMic").style.display=p?"":"none";$("recMainPause").style.display=p?"none":"";$("recMainLbl").textContent=p?"Resume":"Pause";$("recMain").setAttribute("aria-label",p?"Resume recording":"Pause recording");
   $("recOrb").querySelector(".sat2").style.opacity=p?0:1;
   if(p){try{R.sr&&R.sr.stop()}catch(e){}}else if(R.sr){try{R.sr.start()}catch(e){}}}
+function setLive(t){const el=$("recLive");if(R&&R.userEdited)return;el.textContent=t;el.scrollTop=el.scrollHeight;}
+const DEMO_MIC=!/[?&]live\b/.test(location.search);let demoIdx=0;const DEMO_KEYS=["s1","s2","s3","s4"];
 function startRec(){
   go("rec");R={t0:Date.now(),acc:0,text:"",paused:false,sr:null,an:null,stream:null,ctx:null,seg:Date.now()};
-  $("recLive").textContent="";$("recTime").textContent="00:00";hist.fill(8);
+  setLive("");$("recTime").textContent="00:00";hist.fill(8);
   $("recOrb").classList.remove("paused");$("recOrb").classList.add("rec");setPaused(false);
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  const SR=DEMO_MIC?null:(window.SpeechRecognition||window.webkitSpeechRecognition);
+  if(DEMO_MIC){const full=SAMPLE[DEMO_KEYS[demoIdx++%DEMO_KEYS.length]],ws=full.split(" ");R.demoFull=full;let k=0;R.demoT=setInterval(()=>{if(!R||R.paused||R.userEdited)return;k=Math.min(ws.length,k+1);R.text=ws.slice(0,k).join(" ");setLive(R.text);},330);}
   if(SR){try{const sr=new SR();sr.continuous=true;sr.interimResults=true;sr.lang="en-US";let fin="";
-    sr.onresult=e=>{let i="";for(let k=e.resultIndex;k<e.results.length;k++){const r=e.results[k];if(r.isFinal)fin+=r[0].transcript+" ";else i+=r[0].transcript;}R.text=(fin+i).trim();$("recLive").textContent=R.text.slice(-110);};
+    sr.onresult=e=>{let i="";for(let k=e.resultIndex;k<e.results.length;k++){const r=e.results[k];if(r.isFinal)fin+=r[0].transcript+" ";else i+=r[0].transcript;}R.text=(fin+i).trim();setLive(R.text);};
     sr.onerror=()=>{};sr.onend=()=>{if(R&&R.sr===sr&&!R.paused&&!R.stopped){try{sr.start()}catch(e){}}};sr.start();R.sr=sr;}catch(e){}}
-  if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){navigator.mediaDevices.getUserMedia({audio:true}).then(st=>{if(!R){st.getTracks().forEach(t=>t.stop());return;}R.stream=st;const AC=window.AudioContext||window.webkitAudioContext;R.ctx=new AC();R.an=R.ctx.createAnalyser();R.an.fftSize=256;R.ctx.createMediaStreamSource(st).connect(R.an);}).catch(()=>{});}
+  if(!DEMO_MIC&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){navigator.mediaDevices.getUserMedia({audio:true}).then(st=>{if(!R){st.getTracks().forEach(t=>t.stop());return;}R.stream=st;const AC=window.AudioContext||window.webkitAudioContext;R.ctx=new AC();R.an=R.ctx.createAnalyser();R.an.fftSize=256;R.ctx.createMediaStreamSource(st).connect(R.an);}).catch(()=>{});}
   const buf=new Uint8Array(128);let last=0;
   (function loop(ts){if(!R)return;
     let lv=0;if(!R.paused){if(R.an){R.an.getByteTimeDomainData(buf);let m=0;for(const v of buf)m=Math.max(m,Math.abs(v-128));lv=Math.min(1,m/70);}else lv=.3+.25*Math.sin(Date.now()/230)+.15*Math.sin(Date.now()/91);}
@@ -614,13 +655,14 @@ function startRec(){
   tm=setInterval(()=>{const s=elapsed();$("recTime").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");if(s>=60)finishRec();},250);
 }
 function elapsed(){return Math.floor((R.acc+(R.paused?0:Date.now()-R.seg))/1000);}
-function endRec(){cancelAnimationFrame(raf);clearInterval(tm);if(!R)return;R.stopped=true;try{R.sr&&R.sr.stop()}catch(e){}try{R.stream&&R.stream.getTracks().forEach(t=>t.stop())}catch(e){}try{R.ctx&&R.ctx.close()}catch(e){}}
+function endRec(){cancelAnimationFrame(raf);clearInterval(tm);if(!R)return;clearInterval(R.demoT);R.stopped=true;try{R.sr&&R.sr.stop()}catch(e){}try{R.stream&&R.stream.getTracks().forEach(t=>t.stop())}catch(e){}try{R.ctx&&R.ctx.close()}catch(e){}}
 $("recMain").onclick=()=>{if(!R)return;if(R.paused){R.seg=Date.now();setPaused(false);}else{R.acc+=Date.now()-R.seg;setPaused(true);}};
 $("recExit").onclick=()=>{endRec();R=null;const f=recFrom;recFrom=null;f==="unp"?openUnpack():go("cap");};
-function finishRec(){if(!R)return;const d=elapsed(),txt=R.text;endRec();R=null;const ta=$("unpText");
+function finishRec(){if(!R)return;const d=elapsed(),txt=R.userEdited?R.text:(R.demoFull||R.text);endRec();R=null;const ta=$("unpText");
   if(recFrom==="unp"){ta.value=(ta.value.trim()+" "+txt).trim();pendingDur+=d;}else{ta.value=txt;pendingDur=d;}
   const from=recFrom;recFrom=null;if(from==="unp"){openUnpack();}else{pendingDur=0;ta.value="";complete(txt,d);}}
 $("recDone").onclick=finishRec;
+$("recLive").addEventListener("input",()=>{if(R){R.userEdited=true;R.text=$("recLive").textContent;}});
 
 
 /* ---------- AI synthesising animation ---------- */
@@ -628,15 +670,10 @@ const SYN_MSGS=["Listening back to what you said…","Finding what’s underneat
 function keyWords(t){const stop=new Set("this that with have just from they them what when were been very into about there their would could really because still only some than then also like".split(" "));
   const w=[...new Set((t||"").toLowerCase().replace(/[^a-z' ]/g," ").split(/\s+/).filter(x=>x.length>3&&!stop.has(x)))];
   const pick=w.sort((a,b)=>b.length-a.length).slice(0,5);return pick.length>=3?pick:["tonight","breath","you"].slice(0,3);}
-function startSynth(text){const F=$("synField");F.innerHTML="";const ws=keyWords(text),bar=$("synBar"),msg=$("synMsg");
-  bar.style.transition="none";bar.style.width="0";requestAnimationFrame(()=>requestAnimationFrame(()=>{bar.style.transition="width 3.9s linear";bar.style.width="100%";}));
+function startSynth(text){const msg=$("synMsg");$("synField").innerHTML="";
   msg.textContent=SYN_MSGS[0];msg.style.opacity=1;
-  ws.forEach((w,i)=>{const a=(i/ws.length)*Math.PI*2+.6,x=Math.cos(a)*140,y=Math.sin(a)*100,el=document.createElement("span");el.className="syn-w";el.textContent=w;
-    el.style.transform=`translate(calc(-50% + ${x}px),calc(-50% + ${y}px))`;F.appendChild(el);
-    timers.push(setTimeout(()=>{el.style.opacity=.95;},300+i*320));
-    timers.push(setTimeout(()=>{el.style.transform="translate(-50%,-50%) scale(.2)";el.style.opacity=0;},1900+i*260));});
-  SYN_MSGS.forEach((m,i)=>{if(!i)return;timers.push(setTimeout(()=>{msg.style.opacity=0;setTimeout(()=>{msg.textContent=m;msg.style.opacity=1;},320);},i*1000));});
-  timers.push(setTimeout(reveal,4100));}
+  SYN_MSGS.forEach((m,i)=>{if(!i)return;timers.push(setTimeout(()=>{msg.style.opacity=0;setTimeout(()=>{msg.textContent=m;msg.style.opacity=1;},320);},i*1400));});
+  timers.push(setTimeout(reveal,5600));}
 
 /* ---------- 3. unpack ---------- */
 function logIt(){const t=$("unpText").value.trim();if(!t&&!pendingDur){toast("Write a little, or record it instead.");return;}const d=pendingDur;pendingDur=0;$("unpText").value="";complete(t,d);}
@@ -667,7 +704,18 @@ function reveal(){if(cur!=="a1"||!lastCard)return;const c=CARDS[lastCard.key];
   $("a2S").style.top=(186+Math.max(1,Math.ceil(c.h.length/15))*43+55)+"px";
   $("a2Dur").textContent=fmtDur(lastCard.e.dur);$("a2Wave").innerHTML=bars(26,22,lastCard.e.t%7,"rgba(247,233,222,.85)",3).replace(/display:block/g,"display:inline-block;margin-right:5px;vertical-align:middle");
   $("a2Wave").style.whiteSpace="nowrap";$("a2Wave").style.lineHeight="26px";
-  $("a2T").textContent=lastCard.e.text||"You said it out loud. That counts.";go("a2");}
+  $("a2T").textContent=lastCard.e.text||"You said it out loud. That counts.";fillInsights();go("a2");}
+
+const THEMES={sleep:["Sleep","Work","Guilt"],chaos:["Overload","Home","Needs at once"],lonely:["Connection","Missing friends"],anger:["Patience","Guilt","Stress"],love:["Love","Needing space"],neutral:["Quiet moment"]};
+const FEEL={sleep:"Worn out",chaos:"Overloaded",lonely:"Missing people",anger:"Stretched thin",love:"Tender and tired",neutral:"Quiet"};
+function fillInsights(){const k=lastCard.key,e=lastCard.e,since=Date.now()-30*864e5;
+  const n=S.entries.filter(x=>x.card===k&&x.t>=since).length;
+  const tg=(THEMES[k]||THEMES.neutral).map(t=>`<span class="tg">${t}</span>`).join("");
+  const pat=k==="neutral"?"Nothing to read into this one.":n>1?`This has come up ${n} times this month.`:"This is the first time it’s come up this month.";
+  $("a2I").innerHTML=`<div class="ch1"><span class="tg" style="background:rgba(229,146,129,.2)">${FEEL[k]||"Quiet"}</span>${tg}</div><p>${pat}</p><small>Based only on what you said. Not advice.</small>`;
+  setTab("T");}
+function setTab(w){$("a2T").style.display=w==="T"?"":"none";$("a2I").style.display=w==="I"?"block":"none";$("a2TabT").classList.toggle("on",w==="T");$("a2TabI").classList.toggle("on",w==="I");}
+$("a2TabT").onclick=()=>setTab("T");$("a2TabI").onclick=()=>setTab("I");
 const toReflect=()=>{timers.forEach(clearTimeout);go("a1");timers=[setTimeout(reveal,2800)];};
 $("a1Close").onclick=()=>{timers.forEach(clearTimeout);go("cap");};
 $("a2Exhale").onclick=()=>{ensureRel();if(lastCard&&lastCard.key!=="neutral"&&!S.rel.kept.includes(lastCard.e.id)){S.rel.kept.push(lastCard.e.id);save();}go("rest");timers.forEach(clearTimeout);timers=[setTimeout(()=>{if(cur==="rest")go("sav");},5600)];};
@@ -732,13 +780,13 @@ function renderRoots(){
   if(inr.length<3){L.innerHTML=h+`<p style="font:400 16px/24px var(--sans);color:var(--lav)">Not much to show for this stretch yet. Try a longer range.</p>`;return;}
   // strengths
   const c1=chartStrengths(B);const g=grouped(true),top=Object.keys(g).sort((a,b)=>g[b].length-g[a].length)[0];
-  h+=`<div class="vcard hasv" id="vc1">${vig("moon")}<div class="k">Strengths</div><h3>${top?top:"Still growing"}</h3><div class="s" id="s1" data-d="Shown over time, newest on the right.">Shown over time, newest on the right.</div>${c1.svg}${axisHTML(B)}</div>`;
+  h+=`<div class="vcard" id="vc1"><div class="k">Strengths</div><h3>${top?top:"Still growing"}</h3><div class="s" id="s1" data-d="Shown over time, newest on the right.">Shown over time, newest on the right.</div>${c1.svg}${axisHTML(B)}</div>`;
   // weight of days
   const c2=chartWeight(B);
   if(c2){const ws=inr.slice().sort((a,b)=>a.t-b.t).map(e=>e.w??BASE[e.card]),n=Math.floor(ws.length/3),av=a=>a.reduce((q,x)=>q+x,0)/a.length;
     const d=n>=2?av(ws.slice(-n))-av(ws.slice(0,n)):0;const hd=d<-.05?"Lighter lately":d>.05?"A heavier stretch":"Holding steady";
     const sb=d<-.05?"Your recent days feel lighter than earlier on.":d>.05?"Heavy stretches pass. You’ve come through them before.":"Some days heavy, some lighter. You keep showing up.";
-    h+=`<div class="vcard hasv" id="vc2">${vig("sun")}<div class="k">How the days felt</div><h3>${hd}</h3><div class="s" id="s2" data-d="${sb}">${sb}</div>${c2.svg}${axisHTML(B)}</div>`;}
+    h+=`<div class="vcard" id="vc2"><div class="k">How the days felt</div><h3>${hd}</h3><div class="s" id="s2" data-d="${sb}">${sb}</div>${c2.svg}${axisHTML(B)}</div>`;}
   // clock
   const c3=chartClock(inr),hw=hourWord(c3.peak);
   h+=`<div class="vcard" id="vc3"><div class="k">When you let it out</div><div style="display:flex;align-items:center;gap:14px"><div style="flex:1"><h3>${hw[0]}</h3><div class="s" style="min-height:0">${hw[1]}</div><div class="axis" style="justify-content:flex-start;gap:6px;margin-top:10px;font-size:12px;color:var(--lav)">Most often around ${hr12(c3.peak)}</div></div>${c3.svg}</div></div>`;
@@ -780,8 +828,13 @@ const VG={
  sound:'<rect width="72" height="72" fill="#4A3246"/><path d="M0 50a36 36 0 0 1 72 0v22H0z" fill="#CABAD7" opacity=".9"/><path d="M14 40a22 22 0 0 1 44 0" fill="none" stroke="#F7E9DE" stroke-width="5"/><rect x="9" y="38" width="10" height="18" rx="5" fill="#DB3E1D"/><rect x="53" y="38" width="10" height="18" rx="5" fill="#DB3E1D"/>',
  moon:'<rect width="72" height="72" fill="#4A3246"/><rect y="46" width="72" height="26" fill="#DB3E1D"/><circle cx="38" cy="30" r="17" fill="#F7E9DE"/><circle cx="46" cy="25" r="15" fill="#4A3246"/><circle cx="14" cy="14" r="2.5" fill="#CABAD7"/><circle cx="58" cy="12" r="2" fill="#CABAD7"/><circle cx="16" cy="36" r="1.8" fill="#CABAD7"/>',
  sun:'<rect width="72" height="72" fill="#4A3246"/><rect y="44" width="72" height="28" fill="#CABAD7"/><circle cx="46" cy="32" r="14" fill="#DB3E1D"/><g transform="rotate(-4 30 44)"><rect x="12" y="34" width="38" height="16" rx="8" fill="#F7E9DE"/><circle cx="26" cy="34" r="9" fill="#F7E9DE"/><circle cx="38" cy="36" r="7" fill="#F7E9DE"/></g>',
- jar:'<rect width="72" height="72" fill="#4A3246"/><rect y="0" width="72" height="22" fill="#DB3E1D"/><rect x="22" y="14" width="28" height="8" rx="2" fill="#CABAD7"/><rect x="18" y="22" width="36" height="40" rx="8" fill="#F7E9DE"/><path d="M36 30l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7-5.4-4.6 7-.6z" fill="#DB3E1D"/>'};
+ heart:'<rect width="72" height="72" fill="#4A3246"/><rect y="48" width="72" height="24" fill="#CABAD7"/><path d="M36 52C14 38 20 16 36 28 52 16 58 38 36 52z" fill="#DB3E1D"/><circle cx="56" cy="14" r="4" fill="#F7E9DE"/>',
+ cup:'<rect width="72" height="72" fill="#4A3246"/><rect y="0" width="72" height="24" fill="#DB3E1D"/><path d="M16 30h34v14a17 17 0 0 1-34 0z" fill="#F7E9DE"/><path d="M50 34h6a7 7 0 0 1 0 14h-8" fill="none" stroke="#F7E9DE" stroke-width="4"/><path d="M26 22c-3-4 3-6 0-10M36 22c-3-4 3-6 0-10" stroke="#CABAD7" stroke-width="2.5" fill="none" stroke-linecap="round"/>',
+ flower:'<rect width="72" height="72" fill="#4A3246"/><rect y="52" width="72" height="20" fill="#CABAD7"/><path d="M36 56V34" stroke="#F7E9DE" stroke-width="3.5"/><g fill="#DB3E1D"><circle cx="36" cy="22" r="8"/><circle cx="26" cy="30" r="8"/><circle cx="46" cy="30" r="8"/><circle cx="30" cy="40" r="0"/></g><circle cx="36" cy="28" r="6" fill="#F7E9DE"/><path d="M36 48c-8-1-12-6-12-10 8 0 12 4 12 10z" fill="#e59281"/>',
+ note:'<rect width="72" height="72" fill="#4A3246"/><rect y="46" width="72" height="26" fill="#e59281"/><path d="M30 14v30" stroke="#F7E9DE" stroke-width="4"/><path d="M30 14l20-5v26" stroke="#F7E9DE" stroke-width="4" fill="none"/><circle cx="24" cy="46" r="8" fill="#DB3E1D"/><circle cx="44" cy="38" r="8" fill="#DB3E1D"/>', jar:'<rect width="72" height="72" fill="#4A3246"/><rect y="0" width="72" height="22" fill="#DB3E1D"/><rect x="22" y="14" width="28" height="8" rx="2" fill="#CABAD7"/><rect x="18" y="22" width="36" height="40" rx="8" fill="#F7E9DE"/><path d="M36 30l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7-5.4-4.6 7-.6z" fill="#DB3E1D"/>'};
 const vig=(n,sz=72)=>`<svg class="vig" width="${sz}" height="${sz}" viewBox="0 0 72 72" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${VG[n]}</svg>`;
+const MEMV={Jess:"cup",Mom:"flower",Dan:"heart","":"letter"};
+const KEPV={sleep:"moon",chaos:"jar",lonely:"letter",anger:"sun",love:"heart",neutral:"jar"};
 const PEOPLE=[["Dan","Partner"],["Mom","Mom"],["Jess","College friend"]];
 const SUGG={sleep:["A 3-minute audio","For nights that blur together","Slow breathing, no goals and no advice."],chaos:["A short poem, read aloud","For when everything needs you","Two minutes. Nothing to do afterwards."],lonely:["A song to sit with","For when you miss yourself","A quiet one. Play it in the car."],anger:["A 2-minute audio","For when patience runs thin","Gentle, not a lecture. Then back to your day."],love:["A short essay","Loving them and needing space","Three minutes on holding both."]};
 const SYN={sleep:["sleep","slept","tired","awake","night","nap","insomnia","coffee"],quiet:["quiet","alone","solitude","minute","myself","breathe","space"],partner:["partner","husband","wife","him","dan","he","her"],work:["work","job","email","office","late"],friend:["friend","friends","lonely","isolated","talk"],patience:["patience","yell","snap","angry","frustrated","lost"],baby:["baby","teething","daycare","bedtime"]};
@@ -799,11 +852,11 @@ function renderRelics(){ensureRel();const L=$("relList"),R=S.rel;
   const nu=R.mem.filter(m=>m.state==="new");
   h+=`<div class="rlbl">From people who know you</div>`;
   if(nu.length)h+=`<div class="quiet">${nu[0].from} shared a memory. Open it whenever you like.</div>`;
-  h+=R.mem.slice().sort((a,b)=>b.t-a.t).map(m=>`<button class="memc hasv" data-m="${m.id}">${vig("letter")}<span class="mt"><small>${m.from} · ${m.rel}${m.state==="saved"?" · saved for later":""}</small><b>${m.text.length>78?m.text.slice(0,76).replace(/\s+\S*$/,"")+"…":m.text}</b></span></button>`).join("");
+  h+=R.mem.slice().sort((a,b)=>b.t-a.t).map(m=>`<button class="memc hasv" data-m="${m.id}">${vig(MEMV[m.from]||MEMV[""])}<span class="mt"><small>${m.from} · ${m.rel}${m.state==="saved"?" · saved for later":""}</small><b>${m.text.length>78?m.text.slice(0,76).replace(/\s+\S*$/,"")+"…":m.text}</b></span></button>`).join("");
   const last=S.entries.filter(e=>e.card!=="neutral").sort((a,b)=>b.t-a.t)[0];
-  if(last){const sg=SUGG[last.card]||SUGG.chaos;h+=`<div class="rlbl">For this moment</div><button class="memc hasv" id="suggBtn">${vig("sound")}<span class="mt"><small>${sg[0]} · sample content</small><b>${sg[1]}</b><span style="display:block;font:400 14px/20px var(--sans);margin-top:4px;color:#5a4562">${sg[2]}</span></span></button>`;}
+  if(last){const sg=SUGG[last.card]||SUGG.chaos;h+=`<div class="rlbl">For this moment</div><button class="memc hasv" id="suggBtn">${vig("note")}<span class="mt"><small>${sg[0]} · sample content</small><b>${sg[1]}</b><span style="display:block;font:400 14px/20px var(--sans);margin-top:4px;color:#5a4562">${sg[2]}</span></span></button>`;}
   const kept=R.kept.map(id=>S.entries.find(e=>e.id===id)).filter(Boolean);
-  h+=`<div class="rlbl">Kept</div>`+(kept.length?kept.map(e=>`<button class="memc hasv" data-e="${e.id}">${vig("jar")}<span class="mt"><small>${fmtD(e.t)}</small><b>${CARDS[e.card].h}</b></span></button>`).join(""):`<p style="font:400 16px/24px var(--sans);color:var(--lav)">Reflections you exhale are kept here, quietly.</p>`);
+  h+=`<div class="rlbl">Kept</div>`+(kept.length?kept.map(e=>`<button class="memc hasv" data-e="${e.id}">${vig(KEPV[e.card]||"jar")}<span class="mt"><small>${fmtD(e.t)}</small><b>${CARDS[e.card].h}</b></span></button>`).join(""):`<p style="font:400 16px/24px var(--sans);color:var(--lav)">Reflections you exhale are kept here, quietly.</p>`);
   L.innerHTML=h;
   const doAsk=q=>{const out=$("askOut");q=(q||"").trim();if(!q)return;$("askIn").value=q;
     out.innerHTML=`<div class="ans"><div class="lbl" style="font-size:12px;line-height:16px">${sp}Looking back…</div><div class="sk" style="position:relative;height:16px;margin-top:12px;width:90%"></div><div class="sk" style="position:relative;height:16px;margin-top:8px;width:65%"></div></div>`;
@@ -842,8 +895,14 @@ $("sndBack").onclick=()=>go("relics");
 $("sndSend").onclick=()=>{const t=$("sndText").value.trim();if(!t){toast("A few words is plenty.");return;}ensureRel();S.rel.mem.push({id:"m"+Date.now(),from:"Jess",rel:"College friend",kind:"memory",text:t,t:Date.now(),state:"new"});save();go("relics");toast("Sent. Sam will find it quietly.");};
 
 /* ---------- demo controls ---------- */
-$("demoBtn").onclick=()=>{const o=$("demo").classList.toggle("on");$("demoBtn").setAttribute("aria-expanded",o)};
-$("demo").onclick=e=>{const d=e.target.dataset&&e.target.dataset.d;if(!d)return;$("demo").classList.remove("on");
+document.addEventListener("click",e=>{const d=$("demo");if(d.classList.contains("on")&&!e.target.closest("#demo,#demoDot,#demoBtn"))d.classList.remove("on");});
+const toggleDemo=()=>{const o=$("demo").classList.toggle("on");$("demoBtn").setAttribute("aria-expanded",o)};
+$("demoBtn").onclick=toggleDemo;$("demoDot").onclick=toggleDemo;
+if(/[?&]demo\b/.test(location.search))$("demoBtn").style.display="block";
+/* quiet access: triple-tap the top-centre of the screen (or the clock), or press D */
+(()=>{const c=$("demoHot");if(c){let n=0,t=0;c.addEventListener("click",()=>{n++;clearTimeout(t);t=setTimeout(()=>n=0,600);if(n>=3){n=0;toggleDemo();}});}
+addEventListener("keydown",e=>{if((e.key==="d"||e.key==="D")&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName))toggleDemo();});})();
+$("demo").onclick=e=>{const bt=e.target.closest&&e.target.closest("[data-d]");const d=bt&&bt.dataset.d;if(!d)return;$("demo").classList.remove("on");
   if(SAMPLE[d]){if(R){endRec();R=null;}complete(SAMPLE[d],24);}
   if(d==="fail"){failNext=true;toast("Next entry: transcript will fail.");go("cap");}
   if(d==="empty"){S={entries:[],removed:[]};save();go("cap");toast("No entries yet.");}
