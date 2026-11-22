@@ -312,6 +312,9 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 #recLive:empty::before{content:attr(data-ph);color:rgba(202,186,215,.6)}
 #recLive:focus{border-color:var(--lav);background:rgba(202,186,215,.18)}
 
+.ptabs{position:absolute;left:24px;top:136px;width:364px;height:44px;display:flex;gap:28px;border-bottom:1px solid rgba(202,186,215,.3)}
+.ptabs button{height:44px;padding:0 0 2px;font:500 14px/20px var(--sans);letter-spacing:.11em;text-transform:uppercase;color:rgba(202,186,215,.5);border-bottom:2px solid transparent;margin-bottom:-1px;background:none;box-shadow:none!important;transition:none!important}
+.ptabs button[aria-pressed=true]{color:var(--alb,#F7E9DE);border-bottom-color:var(--cinnabar,#DB3E1D)}
 .a2tabs{display:flex;gap:20px;height:20px}
 .a2tabs button{font:500 12px/16px var(--sans);letter-spacing:.11em;text-transform:uppercase;color:rgba(202,186,215,.5);padding:0 0 4px;border-bottom:1.5px solid transparent}
 .a2tabs button.on{color:var(--lav);border-bottom-color:var(--lav)}
@@ -492,8 +495,8 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 <!-- ========== 9. RELICS ========== -->
 <section class="scr" id="relics" aria-label="Relics">
   <h1 class="t serif" style="left:24px;top:84px;width:364px;font-size:33px;line-height:38px">Relics</h1>
-  <div class="seg" id="relSeg" role="group" aria-label="Relics"><button data-t="mine">Yours</button><button data-t="shared">Shared with you</button></div>
-  <div class="scroll" id="relList" style="top:192px;height:625px;padding-bottom:28px"></div>
+  <div class="ptabs" id="relSeg" role="group" aria-label="Relics"><button data-t="mine">Yours</button><button data-t="shared">Shared with you</button></div>
+  <div class="scroll" id="relList" style="top:196px;height:621px;padding-bottom:28px"></div>
 </section>
 
 <section class="scr" id="mem" aria-label="A memory for you">
