@@ -451,8 +451,9 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
 
 <!-- ========== 9. RELICS ========== -->
 <section class="scr" id="relics" aria-label="Relics">
-  <h1 class="t serif" style="left:24px;top:84px;width:348px;font-size:33px;line-height:38px">Relics</h1>
-  <div class="scroll" id="relList" style="top:140px;height:677px;padding-bottom:28px"></div>
+  <h1 class="t serif" style="left:24px;top:84px;width:364px;font-size:33px;line-height:38px">Relics</h1>
+  <div class="seg" id="relSeg" role="group" aria-label="Relics"><button data-t="mine">Yours</button><button data-t="shared">Shared with you</button></div>
+  <div class="scroll" id="relList" style="top:192px;height:625px;padding-bottom:28px"></div>
 </section>
 
 <section class="scr" id="mem" aria-label="A memory for you">
@@ -818,7 +819,7 @@ function openStrength(k){curS=k;$("rsName").textContent=k;
   $("rsBody").innerHTML=`<div style="background:var(--lav);color:var(--eggplant);border-radius:4px;padding:16px;font:700 22px/28px var(--serif);letter-spacing:-.02em;margin-bottom:24px">“${STR[k]}”</div><div class="lbl" style="font-size:14px;margin-bottom:10px">From your entries</div>`+es.map(e=>`<button class="row" data-id="${e.id}"><span class="p"><svg width="12" height="14" viewBox="0 0 14 17"><path d="M0 0l14 8.5L0 17z" fill="#F7E9DE"/></svg></span><span><b style="font-weight:500">${fmtD(e.t)}</b> <span style="color:var(--lav);font-size:14px">· ${fmtDur(e.dur)}</span></span></button>`).join("");
   $("rsBody").querySelectorAll(".row").forEach(b=>b.onclick=()=>openEntry(b.dataset.id));go("rootS");}
 let eBackTo="roots";
-function openEntry(id,back){eBackTo=back||"roots";const e=S.entries.find(x=>x.id===id);if(!e)return;curE=e;ensureRel();$("reDate").textContent=fmtD(e.t);$("reWave").innerHTML=bars(40,34,e.t%7,"rgba(247,233,222,.85)",3);$("reText").textContent=e.text?"“"+e.text+"”":"You said it out loud. That counts.";go("rootE");}
+function openEntry(id,back){eBackTo=back||"roots";if(back==="relics")RELTAB="mine";const e=S.entries.find(x=>x.id===id);if(!e)return;curE=e;ensureRel();$("reDate").textContent=fmtD(e.t);$("reWave").innerHTML=bars(40,34,e.t%7,"rgba(247,233,222,.85)",3);$("reText").textContent=e.text?"“"+e.text+"”":"You said it out loud. That counts.";go("rootE");}
 $("rsBack").onclick=()=>go("roots");$("reBack").onclick=()=>eBackTo==="relics"?go("relics"):(curS&&grouped(true)[curS]?openStrength(curS):go("roots"));$("reDone").onclick=()=>go(eBackTo==="relics"?"relics":"roots");
 $("rsRemove").onclick=()=>{if(!curS)return;S.removed.push(curS);save();toast("“"+curS+"” removed. It won’t appear again.");curS=null;go("roots");};
 
@@ -851,20 +852,25 @@ function ask(q){q=q.toLowerCase().trim();const toks=q.split(/[^a-z']+/).filter(w
   const hit=S.entries.filter(e=>e.card!=="neutral"&&e.text&&[...words].some(w=>e.text.toLowerCase().includes(w))).sort((a,b)=>b.t-a.t);
   const mems=S.rel.mem.filter(m=>[...words].some(w=>m.text.toLowerCase().includes(w)));
   return {toks,hit,mems};}
+let RELTAB="mine";
 function renderRelics(){ensureRel();const L=$("relList"),R=S.rel;
+  document.querySelectorAll("#relSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.t===RELTAB));
   const sp='<svg width="22" height="22" viewBox="0 0 28 28" style="vertical-align:-6px;margin-right:6px"><use href="#aiMono"/></svg>';
   let h="";
+  if(RELTAB==="mine"){
   h+=`<div class="rlbl">Sift through your relics</div><div class="askbox"><input id="askIn" aria-label="Sift through your relics" placeholder="Sift through your relics…" autocomplete="off"><button class="cta btnc" id="askGo">Ask</button></div>
    <div class="chips">${["sleep","quiet","my partner","work"].map(c=>`<button data-q="${c}">${c}</button>`).join("")}</div><div id="askOut"></div>`;
   const kept=R.kept.map(id=>S.entries.find(e=>e.id===id)).filter(Boolean).sort((x,y)=>y.t-x.t);
   h+=`<div class="rlbl">Kept recordings</div>`+(kept.length?kept.map(e=>`<button class="memc hasv" data-e="${e.id}">${vig(KEPV[e.card]||"jar")}<span class="mt"><small>${fmtD(e.t)}${e.dur?" · "+fmtDur(e.dur):""}</small><b>${CARDS[e.card].h}</b></span></button>`).join(""):`<p style="font:400 16px/24px var(--sans);color:var(--lav)">Recordings you exhale are kept here, quietly.</p>`);
-  const nu=R.mem.filter(m=>m.state==="new");
-  h+=`<button class="memrow" id="memToggle" aria-expanded="false"><span>Memories from people</span><span class="mr2">${nu.length?`<i>${nu.length} new</i>`:""}<em>›</em></span></button><div id="memBox" style="display:none">`;
-  h+=R.mem.slice().sort((a,b)=>b.t-a.t).map(m=>`<button class="memc hasv" data-m="${m.id}">${vig(MEMV[m.from]||MEMV[""])}<span class="mt"><small>${m.from} · ${m.rel}${m.state==="saved"?" · saved for later":""}</small><b>${m.text.length>78?m.text.slice(0,76).replace(/\s+\S*$/,"")+"…":m.text}</b></span></button>`).join("")+`</div>`;
   const last=S.entries.filter(e=>e.card!=="neutral").sort((a,b)=>b.t-a.t)[0];
   if(last){const sg=SUGG[last.card]||SUGG.chaos;h+=`<div class="rlbl">For this moment</div><button class="memc hasv" id="suggBtn">${vig("note")}<span class="mt"><small>${sg[0]} · sample content</small><b>${sg[1]}</b><span style="display:block;font:400 14px/20px var(--sans);margin-top:4px;color:#5a4562">${sg[2]}</span></span></button>`;}
+  }else{
+  const nu=R.mem.filter(m=>m.state==="new");
+  h+=`<p style="font:400 16px/24px var(--sans);color:var(--lav);margin:0 0 16px">Memories and kind words from people you chose.</p>`;
+  if(nu.length)h+=`<div class="quiet">${nu[0].from} shared a memory. Open it whenever you like.</div>`;
+  h+=R.mem.slice().sort((a,b)=>b.t-a.t).map(m=>`<button class="memc hasv" data-m="${m.id}">${vig(MEMV[m.from]||MEMV[""])}<span class="mt"><small>${m.from} · ${m.rel}${m.state==="saved"?" · saved for later":""}</small><b>${m.text.length>78?m.text.slice(0,76).replace(/\s+\S*$/,"")+"…":m.text}</b></span></button>`).join("");
+  }
   L.innerHTML=h;
-  $("memToggle").onclick=()=>{const bx=$("memBox"),o=bx.style.display==="block";bx.style.display=o?"none":"block";$("memToggle").setAttribute("aria-expanded",!o);$("memToggle").querySelector("em").style.transform=o?"":"rotate(90deg)";};
   const doAsk=q=>{const out=$("askOut");q=(q||"").trim();if(!q)return;$("askIn").value=q;
     out.innerHTML=`<div class="ans"><div class="lbl" style="font-size:12px;line-height:16px">${sp}Looking back…</div><div class="sk" style="position:relative;height:16px;margin-top:12px;width:90%"></div><div class="sk" style="position:relative;height:16px;margin-top:8px;width:65%"></div></div>`;
     setTimeout(()=>{const r=ask(q);let t="";
@@ -877,14 +883,15 @@ function renderRelics(){ensureRel();const L=$("relList"),R=S.rel;
         t+=r.hit.slice(0,4).map(e=>`<button class="row" data-e="${e.id}"><span class="p"><svg width="12" height="14" viewBox="0 0 14 17"><path d="M0 0l14 8.5L0 17z" fill="#F7E9DE"/></svg></span><span><b style="font-weight:500">${fmtD(e.t)}</b> <span style="color:var(--lav);font-size:14px">· ${e.text.length>40?e.text.slice(0,38).replace(/\s+\S*$/,"")+"…":e.text}</span></span></button>`).join("");}
       out.innerHTML=`<div class="ans"><div class="lbl" style="font-size:12px;line-height:16px">${sp}From your own entries</div>${t}</div>`;
       out.querySelectorAll("[data-e]").forEach(b=>b.onclick=()=>openEntry(b.dataset.e,"relics"));},900);};
-  $("askGo").onclick=()=>doAsk($("askIn").value);$("askIn").onkeydown=e=>{if(e.key==="Enter")doAsk($("askIn").value);};
+  if($("askGo")){$("askGo").onclick=()=>doAsk($("askIn").value);$("askIn").onkeydown=e=>{if(e.key==="Enter")doAsk($("askIn").value);};}
   L.querySelectorAll(".chips button").forEach(b=>b.onclick=()=>doAsk(b.dataset.q));
   L.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>openMem(b.dataset.m));
   L.querySelectorAll("[data-e]").forEach(b=>{if(!b.closest("#askOut"))b.onclick=()=>openEntry(b.dataset.e,"relics");});
   const sg=$("suggBtn");if(sg)sg.onclick=()=>toast("In the real app this opens a link. Demo uses sample content.");
 }
+document.querySelectorAll("#relSeg button").forEach(b=>b.onclick=()=>{RELTAB=b.dataset.t;renderRelics();$("relList").scrollTop=0;});
 let curM=null;
-function openMem(id){ensureRel();const m=S.rel.mem.find(x=>x.id===id);if(!m)return;curM=m;if(m.state==="new")m.state="seen";save();
+function openMem(id){RELTAB="shared";ensureRel();const m=S.rel.mem.find(x=>x.id===id);if(!m)return;curM=m;if(m.state==="new")m.state="seen";save();
   $("memFrom").textContent=(m.kind==="trait"?"A trait ":"A memory ")+"from "+m.from+" · "+m.rel;$("memText").textContent="“"+m.text+"”";
   $("memNoteBox").style.display="none";$("memNote").value="";$("memWrite").textContent="Write a short note";go("mem");}
 $("memBack").onclick=()=>go("relics");
