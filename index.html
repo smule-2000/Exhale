@@ -458,7 +458,7 @@ textarea{font:400 16px/23px var(--sans);color:#3e3e3e}
   <button class="a" id="restBtn" aria-label="Continue" style="inset:0;width:100%;height:100%"></button>
   <div class="a" style="left:106px;top:290px;width:200px;height:200px;pointer-events:none"><div class="bo bo3"></div><div class="bo bo2"></div><div class="bo bo1"></div><i class="boDot"></i></div>
   <div class="t serif" style="left:24px;top:540px;width:364px;font-size:34px;line-height:40px;text-align:center">Breathe out.</div>
-  <div class="t" style="left:24px;top:850px;width:364px;text-align:center;font:400 13px/18px var(--sans);color:rgba(202,186,215,.45)">Tap anywhere to continue.</div>
+  <div class="t" style="left:24px;top:775px;width:364px;text-align:center;font:400 13px/18px var(--sans);color:rgba(202,186,215,.45)">Tap anywhere to continue.</div>
 </section>
 
 <!-- ========== 8. ROOTS ========== -->
@@ -617,7 +617,7 @@ function drawBar(active,h){const b=$("bar");b.style.top=(917-h)+"px";b.style.hei
   b.querySelectorAll(".tab").forEach(t=>t.onclick=()=>go(t.dataset.k==="echoes"?"cap":t.dataset.k==="roots"?"roots":"relics"));
   // offset so the bar's tabs always sit at y=837
   b.querySelectorAll(".tab").forEach(t=>t.style.top=(837-(917-h))+"px");}
-const BAR={mem:["relics",100],snd:null,cap:["echoes",100],rec:null,unp:["echoes",100],a1:["echoes",100],a2:["echoes",100],rest:null,sav:["echoes",100],roots:["roots",100],rootS:["roots",100],rootE:["roots",100],relics:["relics",100]};
+const BAR={mem:["relics",100],snd:null,cap:["echoes",100],rec:["echoes",100],unp:["echoes",100],a1:["echoes",100],a2:["echoes",100],rest:["echoes",100],sav:["echoes",100],roots:["roots",100],rootS:["roots",100],rootE:["roots",100],relics:["relics",100]};
 function go(id){
   document.querySelectorAll(".scr").forEach(s=>s.classList.toggle("on",s.id===id));
   const bc=BAR[id];if(bc){$("bar").style.display="";drawBar(bc[0],bc[1]);}else $("bar").style.display="none";
